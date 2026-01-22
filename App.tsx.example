@@ -1,0 +1,17 @@
+// Example of how to add the route to your App.tsx file
+
+import { Routes, Route } from 'react-router-dom'
+import BetaLandingPage from '@/pages/BetaLandingPage'
+
+function App() {
+  return (
+    <Routes>
+      {/* Add this route */}
+      <Route path="/betalanding" element={<BetaLandingPage />} />
+      
+      {/* Your other routes... */}
+    </Routes>
+  )
+}
+
+export default App
