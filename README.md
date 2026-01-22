@@ -1,23 +1,18 @@
 # Caesar X Beta Landing Page
 
-This package contains the complete beta landing page for Caesar X, including all necessary components and assets.
+A professional, minimalist landing page for Caesar X with an interactive DotGrid background effect.
 
-## Files Included
+## Features
 
-### Components
-- `src/pages/BetaLandingPage.tsx` - Main landing page component
-- `src/components/DotGrid.jsx` - Interactive dot grid background component
-- `src/components/DotGrid.css` - Styles for DotGrid component
-- `src/components/GridDistortion.jsx` - Grid distortion effect component (optional/reference)
-- `src/components/GridDistortion.css` - Styles for GridDistortion component
-
-### Assets
-- `public/icons/social/discord-icon.svg` - Discord social icon
-- `public/icons/social/x-logo.svg` - X/Twitter social icon
+- **Interactive DotGrid Background** - Animated dot grid that responds to mouse movement
+- **Responsive Design** - Optimized for both desktop and mobile devices
+- **Glassmorphic UI** - Modern glassmorphic button effects with gold color scheme
+- **Social Icons** - X (Twitter) and Discord icons in bottom right
+- **Single Page Layout** - No scrolling required, everything fits on one screen
 
 ## Installation
 
-1. Copy the files to your project maintaining the directory structure:
+1. **Copy the files to your project** maintaining the directory structure:
    ```
    src/pages/BetaLandingPage.tsx → your-project/src/pages/
    src/components/DotGrid.jsx → your-project/src/components/
@@ -25,28 +20,20 @@ This package contains the complete beta landing page for Caesar X, including all
    public/icons/social/* → your-project/public/icons/social/
    ```
 
-2. Install required dependencies (if not already installed):
+2. **Install required dependencies** (if not already installed):
    ```bash
    npm install gsap
    # or
    yarn add gsap
    ```
 
-3. Add the route to your `App.tsx` or router file:
+3. **Add the route to your `App.tsx` or router file:**
    ```tsx
    import BetaLandingPage from '@/pages/BetaLandingPage'
    
    // In your Routes:
    <Route path="/betalanding" element={<BetaLandingPage />} />
    ```
-
-## Features
-
-- **Interactive DotGrid Background** - Animated dot grid that responds to mouse movement
-- **Responsive Design** - Optimized for both desktop and mobile devices
-- **Glassmorphic UI** - Modern glassmorphic button effects
-- **Social Icons** - X (Twitter) and Discord icons in bottom right
-- **Mobile Optimized** - Responsive text sizes, spacing, and touch targets
 
 ## Route
 
@@ -72,8 +59,25 @@ href="https://x.com/caesarx"  // Change to your X/Twitter URL
 href="https://discord.gg/caesarx"  // Change to your Discord URL
 ```
 
+## File Structure
+
+```
+caesarx-landing-page/
+├── src/
+│   ├── pages/
+│   │   └── BetaLandingPage.tsx    # Main landing page component
+│   └── components/
+│       ├── DotGrid.jsx             # Interactive dot grid component
+│       └── DotGrid.css             # DotGrid styles
+└── public/
+    └── icons/
+        └── social/
+            ├── discord-icon.svg    # Discord icon
+            └── x-logo.svg          # X/Twitter icon
+```
+
 ## Notes
 
-- The `GridDistortion` component is included but not currently used in the landing page
 - The DotGrid uses GSAP's InertiaPlugin for smooth animations
 - All components are optimized for performance on mobile devices
+- The page is designed to fit on a single screen without scrolling
