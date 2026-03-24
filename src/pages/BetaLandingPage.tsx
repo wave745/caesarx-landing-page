@@ -8,8 +8,13 @@ import DotGrid from "@/components/DotGrid"
 export default function BetaLandingPage() {
   const navigate = useNavigate()
   const { setVisible: setWalletModalVisible } = useWalletModal()
-  const { connected } = useWallet()
+  const { connected, publicKey, disconnect } = useWallet()
   const [isConnecting, setIsConnecting] = useState(false)
+
+  const formatAddress = (address?: string) => {
+    if (!address) return ""
+    return `${address.slice(0, 4)}...${address.slice(-4)}`
+  }
 
   const handleConnectWallet = () => {
     setIsConnecting(true)
@@ -53,11 +58,7 @@ export default function BetaLandingPage() {
         />
       </div>
 
-      {/* Animated gradient orbs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 2 }}>
-        <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] rounded-full blur-3xl animate-pulse" style={{ backgroundColor: 'rgba(231, 204, 124, 0.05)' }} />
-        <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] rounded-full blur-3xl animate-pulse delay-1000" style={{ backgroundColor: 'rgba(231, 204, 124, 0.05)' }} />
-      </div>
+
 
       {/* Header */}
       <header className="relative w-full" style={{ zIndex: 10, position: 'relative' }}>
@@ -71,33 +72,6 @@ export default function BetaLandingPage() {
                 className="h-8 sm:h-10 lg:h-12 w-auto"
               />
             </div>
-            
-            {/* Trade Now Button */}
-            <Button
-              onClick={handleConnectWallet}
-              variant="goldSolid"
-              size="lg"
-              className="text-xs sm:text-sm lg:text-base font-semibold transition-all duration-300 hover:scale-105 backdrop-blur-md px-3 sm:px-4"
-              style={{ 
-                background: 'rgba(231, 204, 124, 0.15)',
-                border: '1px solid rgba(231, 204, 124, 0.3)',
-                color: '#E7CC7C',
-                boxShadow: '0 8px 32px 0 rgba(231, 204, 124, 0.15)',
-                backdropFilter: 'blur(10px)'
-              }}
-              onMouseEnter={(e) => {
-                if (!e.currentTarget.disabled) {
-                  e.currentTarget.style.background = 'rgba(231, 204, 124, 0.25)'
-                  e.currentTarget.style.borderColor = 'rgba(231, 204, 124, 0.5)'
-                }
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(231, 204, 124, 0.15)'
-                e.currentTarget.style.borderColor = 'rgba(231, 204, 124, 0.3)'
-              }}
-            >
-              Trade Now
-            </Button>
           </div>
         </div>
       </header>
@@ -106,91 +80,89 @@ export default function BetaLandingPage() {
       <div className="relative" style={{ zIndex: 10, position: 'relative', isolation: 'isolate' }}>
         {/* Hero Section */}
         <section className="relative overflow-hidden flex items-center justify-center h-[calc(100vh-3.5rem)] sm:h-[calc(100vh-4rem)] lg:h-[calc(100vh-5rem)] px-3 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 lg:-mt-12">
-          <div className="max-w-5xl mx-auto text-center w-full">
+          <div className="max-w-[380px] mx-auto w-full p-6 sm:p-8 rounded-3xl bg-zinc-900/40 border border-zinc-800/60 backdrop-blur-2xl shadow-2xl flex flex-col items-center justify-center text-center">
             {/* Logo */}
-            <div className="mb-2 sm:mb-3 lg:mb-4 flex justify-center items-center">
+            <div className="mb-4 flex justify-center items-center">
               <img 
-                src="/CAESARX LOGO GOLD.svg" 
+                src="/CAESARX LOGO MAIN.svg" 
                 alt="CaesarX Logo" 
-                className="h-12 sm:h-16 lg:h-20 xl:h-24 w-auto opacity-90"
+                className="h-20 sm:h-24 w-auto drop-shadow-lg"
               />
             </div>
 
-            {/* Badge */}
-            <div className="flex justify-center items-center mb-3 sm:mb-4 lg:mb-5">
-              <span className="text-sm sm:text-base lg:text-lg xl:text-xl font-bold" style={{ color: '#E7CC7C' }}>
-                Beta Access
-              </span>
-            </div>
+            {/* Headline */}
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2 leading-tight tracking-tight">
+              Connect your wallet to<br />Start Trading
+            </h2>
 
-            {/* Subheadline */}
-            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-zinc-300 max-w-3xl mx-auto mb-3 sm:mb-4 lg:mb-5 leading-relaxed sm:leading-relaxed font-light px-2">
-              Deploy across top launchpads with bundler + vanity edge. Auto-snipe with real-time feeds, MEV protection & risk controls.
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base text-zinc-400 mb-6 font-medium">
+              Get Started with CaesarX!
             </p>
 
-            {/* CTA */}
-            <div className="flex justify-center items-center px-2">
-              <Button
-                onClick={handleConnectWallet}
-                variant="goldSolid"
-                size="xl"
-                className="text-sm sm:text-base lg:text-lg font-semibold transition-all duration-300 hover:scale-105 backdrop-blur-md w-full sm:w-auto px-4 sm:px-6"
-                style={{ 
-                  background: 'rgba(231, 204, 124, 0.2)',
-                  border: '1px solid rgba(231, 204, 124, 0.4)',
-                  color: '#E7CC7C',
-                  boxShadow: '0 8px 32px 0 rgba(231, 204, 124, 0.2)',
-                  backdropFilter: 'blur(10px)'
-                }}
-                onMouseEnter={(e) => {
-                  if (!e.currentTarget.disabled) {
-                    e.currentTarget.style.background = 'rgba(231, 204, 124, 0.3)'
-                    e.currentTarget.style.borderColor = 'rgba(231, 204, 124, 0.6)'
-                    e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(231, 204, 124, 0.3)'
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(231, 204, 124, 0.2)'
-                  e.currentTarget.style.borderColor = 'rgba(231, 204, 124, 0.4)'
-                  e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(231, 204, 124, 0.2)'
-                }}
-              >
-                Trade Now on Caesar X
-              </Button>
-            </div>
+            {/* Select Wallet Button */}
+            <Button
+              onClick={connected ? () => navigate("/app") : handleConnectWallet}
+              variant="goldSolid"
+              size="lg"
+              className="w-full text-sm sm:text-base font-bold flex items-center justify-center gap-2 rounded-2xl transition-all duration-300 py-5"
+              style={{ 
+                background: '#E7CC7C',
+                color: '#18181b', // zinc-900
+              }}
+              onMouseEnter={(e) => {
+                if (!e.currentTarget.disabled) {
+                  e.currentTarget.style.transform = 'scale(1.02)'
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)'
+              }}
+            >
+              {/* Wallet Icon */}
+              {!connected && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+                  <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+                  <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+                </svg>
+              )}
+              {connected ? "Launch App" : "Select Wallet"}
+            </Button>
           </div>
         </section>
       </div>
 
       {/* Social Icons - Bottom Right */}
-      <div className="fixed right-3 sm:right-4 lg:right-6 bottom-8 sm:bottom-12 lg:bottom-16 flex items-center gap-3 sm:gap-4" style={{ zIndex: 10 }}>
+      <div className="fixed right-3 sm:right-4 lg:right-6 bottom-4 sm:bottom-6 lg:bottom-8 flex items-center gap-4 sm:gap-5" style={{ zIndex: 10 }}>
         <a
           href="https://x.com/caesarx"
           target="_blank"
           rel="noopener noreferrer"
-          className="transition-all duration-300 hover:scale-110 active:scale-95"
+          className="text-zinc-500 hover:text-[#E7CC7C] transition-all duration-300 hover:scale-110 active:scale-95"
           aria-label="X (Twitter)"
         >
-          <img
-            src="/icons/social/x-logo.svg"
-            alt="X (Twitter)"
-            className="w-5 h-5 sm:w-6 sm:h-6"
-            style={{ filter: 'brightness(0) saturate(100%) invert(85%) sepia(30%) saturate(2000%) hue-rotate(0deg) brightness(1) contrast(1)' }}
-          />
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24">
+            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m3 21l7.5-7.5m3-3L21 3M8 3H3l13 18h5Z"/>
+          </svg>
         </a>
         <a
           href="https://discord.gg/caesarx"
           target="_blank"
           rel="noopener noreferrer"
-          className="transition-all duration-300 hover:scale-110 active:scale-95"
+          className="text-zinc-500 hover:text-[#E7CC7C] transition-all duration-300 hover:scale-110 active:scale-95"
           aria-label="Discord"
         >
-          <img
-            src="/icons/social/discord-icon.svg"
-            alt="Discord"
-            className="w-5 h-5 sm:w-6 sm:h-6"
-            style={{ filter: 'brightness(0) saturate(100%) invert(85%) sepia(30%) saturate(2000%) hue-rotate(0deg) brightness(1) contrast(1)' }}
-          />
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 100 100">
+            <path fill="none" stroke="currentColor" strokeWidth="6" strokeMiterlimit="10" d="M75,27.6L75,27.6c-4.7-2.2-9.6-3.7-14.7-4.6c-0.1,0-0.2,0-0.2,0.1c-0.6,1.1-1.3,2.5-1.8,3.7
+              c-5.5-0.8-11-0.8-16.5,0c-0.5-1.3-1.2-2.5-1.9-3.7c0-0.1-0.1-0.1-0.2-0.1c-5.1,0.9-10.1,2.4-14.7,4.5l-0.1,0.1
+              C15.6,41.3,13,54.7,14.3,67.9l0.1,0.2c5.4,4,11.5,7,18,8.9c0.1,0,0.2,0,0.3-0.1c1.4-1.9,2.6-3.8,3.7-5.9c0.1-0.1,0-0.2-0.1-0.3l0,0
+              c-1.9-0.7-3.8-1.6-5.6-2.6c-0.1-0.1-0.1-0.2-0.1-0.3l0.1-0.1c0.4-0.3,0.8-0.6,1.1-0.9l0.2,0c11.8,5.3,24.5,5.3,36.2,0l0.2,0
+              c0.4,0.3,0.7,0.6,1.1,0.9c0.1,0.1,0.1,0.2,0,0.3l-0.1,0.1c-1.8,1-3.7,1.9-5.6,2.6c-0.1,0-0.2,0.2-0.1,0.3l0,0c1.1,2.1,2.3,4,3.7,5.9
+              c0.1,0.1,0.2,0.1,0.3,0.1c6.5-1.9,12.6-5,18-8.9l0.1-0.2C87.2,52.6,83.2,39.3,75,27.6z M38.1,59.8c-3.5,0-6.5-3.2-6.5-7.1
+              c0-3.9,2.9-7.1,6.5-7.1c3.6,0,6.5,3.2,6.5,7.1C44.5,56.6,41.7,59.8,38.1,59.8z M62,59.8c-3.5,0-6.5-3.2-6.5-7.1
+              c0-3.9,2.9-7.1,6.5-7.1c3.6,0,6.5,3.2,6.5,7.1C68.5,56.6,65.6,59.8,62,59.8z"/>
+          </svg>
         </a>
       </div>
     </div>
